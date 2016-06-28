@@ -17,6 +17,16 @@
         background: rgba(255, 0, 33, 0.2);
       }
 
+      a {
+        text-decoration: none;
+        color: #d6001c;
+        transition: color 250ms;
+      }
+
+      a:hover {
+        color: #d6001c;
+      }
+
       .h-auto {
         height: auto;
       }
@@ -43,6 +53,10 @@
 
       .caps {
         letter-spacing: normal;
+      }
+
+      .black {
+        color: #333;
       }
 
       .red {
@@ -103,10 +117,12 @@
                 <img class="col-12 h-auto" src="{{ image_path }}" width="608" height="372">
               </figure>
               <div class="col sm-col-4">
-                <h3 class="h1 lh-none m0 mb2">{{ title }}</h3>
+                <a class="black" href="#">
+                  <h3 class="h1 lh-none m0 mb2">{{ title }}</h3>
+                </a>
                 <span class="a-rule block my2 bg-red"></span>
                 <p class="serif m0">{{ description }}</p>
-                <div class="sm-mt2">
+                <div class="sm-mt1">
                 {{ #tags }}
                   <span class="h5 bold caps {{ #href }}red{{ /href }} {{ ^href }}gray{{ /href }} mr2">{{ name }}</span>
                 {{ /tags }}
@@ -126,7 +142,9 @@
             {{ #latest }}
               <div class="col col-12 sm-col-6 lg-col-4 px2 pb3">
                 <img class="col-12 h-auto" src="{{ image_path }}" width="300" height="180">
-                <h3 class="h2 lh-none m0 my1">{{ title }}</h3>
+                <a class="black" href="#">
+                  <h3 class="h2 lh-none m0 my1">{{ title }}</h3>
+                </a>
                 <p class="serif m0">{{ description }}</p>
                 <div class="">
                   {{ #tags }}
