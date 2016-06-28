@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>
+
+    </title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://npmcdn.com/basscss@8.0.1/css/basscss.min.css" rel="stylesheet">
+    <link href="https://npmcdn.com/basscss-responsive-margin/css/responsive-margin.css" rel="stylesheet">
+    <link href="https://npmcdn.com/basscss-responsive-padding/css/responsive-padding.css" rel="stylesheet">
+
+    <style type="text/css">
+      ::selection {
+        background: rgba(255, 0, 33, 0.2);
+      }
+
+      .h-auto {
+        height: auto;
+      }
+
+      .w-auto {
+        width: auto;
+      }
+
+      .sans-serif {
+        font-family: 'Source Sans Pro';
+      }
+
+      .serif {
+        font-family: 'Utopia STD';
+      }
+
+      .lh-none {
+        line-height: 1;
+      }
+
+      .lh-normal {
+        line-height: 1.6;
+      }
+
+      .caps {
+        letter-spacing: normal;
+      }
+
+      .red {
+        color: #d6001c;
+      }
+
+      .gray {
+        color: #ccc;
+      }
+
+      .light-gray {
+        color: #dedede;
+      }
+
+      .bg-gray {
+        background-color: #ccc;
+      }
+
+      .bg-light-gray {
+        background-color: #dedede;
+      }
+
+      .bg-red {
+        background-color: #d6001c;
+      }
+
+      .a-line {
+        height: 4px;
+      }
+
+      .a-rule {
+        width: 75px;
+        height: 10px;
+      }
+    </style>
+  </head>
+  <body class="m0 sans-serif lh-normal">
+    <div id="target"></div>
+    <div id="template" class="display-none">
+      <div class="mx2 lg-mx-auto" style="max-width: 960px;">
+        <section class="my3">
+          <div class="mb2 flex items-center">
+            <h5 class="flex-none h2 bold caps red m0">Featured</h5>
+            <hr class="a-line flex-auto col-12 ml2 border-none bg-light-gray"></hr>
+          </div>
+          {{ #featured }}
+            <div class="clearfix">
+              <figure class="col col-12 m0 pb1 sm-col-right sm-col-8 sm-p0 sm-pl3">
+                <img class="col-12 h-auto" src="{{ image_path }}" width="608" height="372">
+              </figure>
+              <div class="col sm-col-4">
+                <h3 class="h1 lh-none m0 mb2">{{ title }}</h3>
+                <span class="a-rule block my2 bg-red"></span>
+                <p class="serif m0">{{ description }}</p>
+                <div class="sm-mt2">
+                {{ #tags }}
+                  <span class="h5 bold caps {{ #href }}red{{ /href }} {{ ^href }}gray{{ /href }} mr2">{{ name }}</span>
+                {{ /tags }}
+                </div>
+              </div>
+            {{ /featured }}
+          </div>
+        </section>
+
+        <section class="my3">
+          <div class="mb2 flex items-center">
+            <h5 class="flex-none h2 bold caps red m0">Latest Articles</h5>
+            <hr class="a-line flex-auto col-12 ml2 border-none bg-light-gray"></hr>
+          </div>
+          <div class="flex flex-wrap mxn2">
+            {{ #latest }}
+              <div class="col col-12 sm-col-6 lg-col-4 px2 pb3">
+                <img class="col-12 h-auto" src="{{ image_path }}" width="300" height="180">
+                <h3 class="h2 lh-none m0 my1">{{ title }}</h3>
+                <p class="serif m0">{{ description }}</p>
+                <div class="">
+                  {{ #tags }}
+                    <span class="h5 bold caps {{ #href }} red {{ /href }} {{ ^href }} gray {{ /href }} mr2">{{ name }}</span>
+                  {{ /tags }}
+                </div>
+              </div>
+            {{ /latest }}
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    <script type="text/javascript">
+      var data = {
+        featured: {
+          title: "Glass Ingestion in a Boxer: 1 Case, 2 Options",
+          description: "With a potentially obstructive foreign body, more than one treatment plan may be appropriate. You make the call in this interactive case.",
+          image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/cr_glass-ingestion-header.png?itok=cqllzB50",
+          tags: [
+            {
+              name: "Surgery, Soft Tissue",
+              href: "#",
+            },
+            {
+              name: "Peer Reviewed",
+              href: false,
+            },
+          ],
+        },
+        latest: [
+          {
+            title: "The Case: Canine Urinary Obstruction",
+            description: "A 5-year-old boxer was anesthetized to alleviate a urinary obstruction. Despite supportive care, the patient’s condition declined and he arrested. What went wrong in this case?",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/LL_Urinary_HEADER.png?itok=qTzT4z7z",
+            tags: [
+              {
+                name: "Urology & Nephrology",
+                href: "#",
+              },
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+          {
+            title: "Topical Treatment of Pyoderma ",
+            description: "Topical therapy alone may be effective for treating some canine pyodermas. How do you choose the correct topical treatment for your patient?",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/ASK_Pyoderma_HEADER.png?itok=ldf64pgu",
+            tags: [
+              {
+                name: "Dermatology",
+                href: "#",
+              },
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+          {
+            title: "Top 5 Causes of Crusted Paw in Dogs",
+            description: "A systematic approach will help determine the cause of crusted paws. Review key features of diseases affecting this region of the body.",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/TOP5_Crusted-Paw_HEADER.png?itok=lL-uycgY",
+            tags: [
+              {
+                name: "Dermatology",
+                href: "#",
+              },
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+          {
+            title: "Fighting & House Soiling in Cats",
+            description: "Identifying subtle intercat aggression can be the key to solving persistent house soiling. Discover tricks to help decode feline behavior. ",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/AP_fighting-%26-house-soiling-in-cats_header.png?itok=1z3Th93H",
+            tags: [
+              {
+                name: "Behavior",
+                href: "#",
+              },
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+          {
+            title: "Severe Generalized Pyoderma in a Puppy",
+            description: "Novel treatment options for a common dermatologic disorder are covered in this case report. Challenge yourself to learn something new!",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/styles/vtb-large/public/AC_Pyoderma_HEADER.png?itok=Wbc37_4a",
+            tags: [
+              {
+                name: "Dermatology",
+                href: "#",
+              },
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+          {
+            title: "Narrowed Palpebral Fissure in a Dog",
+            description: "",
+            image_path: "http://www.cliniciansbrief.com/sites/default/files/MYD_Palpebral_HEADER.png",
+            tags: [
+              {
+                name: "Peer Reviewed",
+                href: false,
+              },
+            ],
+          },
+        ],
+      };
+
+      function loadTemplate() {
+        var template = document.getElementById('template').innerHTML;
+        Mustache.parse(template);
+        var rendered = Mustache.render(template, data);
+        document.getElementById('target').innerHTML = rendered;
+      }
+
+      loadTemplate();
+    </script>
+  </body>
+</html>
