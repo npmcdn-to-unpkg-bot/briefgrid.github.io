@@ -59,6 +59,10 @@
         color: #333;
       }
 
+      .white {
+        color: #fff;
+      }
+
       .red {
         color: #d6001c;
       }
@@ -69,6 +73,14 @@
 
       .light-gray {
         color: #dedede;
+      }
+
+      .bg-black {
+        background-color: #333;
+      }
+
+      .bg-white {
+        background-color: #fff;
       }
 
       .bg-gray {
@@ -83,6 +95,14 @@
         background-color: #d6001c;
       }
 
+      .border-light-gray {
+        border-color: #dedede;
+      }
+
+      .muted {
+        opacity: 0.5;
+      }
+
       .a-line {
         height: 4px;
       }
@@ -90,6 +110,21 @@
       .a-rule {
         width: 75px;
         height: 10px;
+      }
+
+      .a-overlay-page-corner {
+        content: '';
+        position: absolute;
+        top: -5px;
+        width: 0;
+        height: 0;
+        border-top: 35px solid white;
+        border-right: 50px solid transparent;
+        margin: 0 auto;
+      }
+
+      .a-accent-border {
+        border-top: 5px solid #8b1921;
       }
     </style>
   </head>
@@ -103,7 +138,9 @@
     The Real Magic
     -->
     <div id="template" class="display-none">
-      <div class="mx2 lg-mx-auto" style="max-width: 960px;">
+
+      <!-- Main Content -->
+      <main class="mx2 lg-mx-auto" style="max-width: 960px;">
 
         <!-- Feature Article -->
         <section class="my3">
@@ -155,8 +192,77 @@
             {{ /latest }}
           </div>
         </section>
-      </div>
-    </div>
+      </main>
+
+      <!-- Prefooter -->
+      <section class="my2 bg-red a-accent-border">
+        <div class="flex flex-wrap items-start mx-auto px2 py4 relative" style="max-width: 960px;">
+          <div class="a-overlay-page-corner"></div>
+          <div class="col col-12 sm-col-6 md-col-4 pb3 sm-p0 sm-pr4">
+            <img class="fit" style="max-width: 250px;" src="http://cb.local/sites/default/files/images/CB/CB-Logo-White.svg" />
+            <hr class="a-rule m0 mt1 border-none bg-black"></hr>
+          </div>
+          <div class="col col-12 sm-col-6 md-col-8 sm-pl1 serif white">
+            <p class="m0"><i>Clinician's Brief</i> provides relevant diagnostic and treatment information for small animal practitioners. It has been ranked the #1 most essential publication by small animal veterinarians for 9 years.*</p>
+            <p class="m0 mt2">*2007-2015 PERQ and Essential Media Studies</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section class="my2">
+        <div class="mx-auto px2 py3 h5" style="max-width: 960px;">
+          <div class="pb3 border-bottom border-light-gray">
+            <div class="flex flex-wrap mxn2">
+              <ul class="col col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1">Home</li>
+                <li class="caps my1">My account</li>
+                <li class="caps my1">Sign out</li>
+              </ul>
+
+              <ul class="col col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1">Latest issue</li>
+                <li class="caps my1">Global edition</li>
+                <li class="caps my1">Capsules</li>
+              </ul>
+
+              <ul class="col col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1">Diagnosis &amp; treatment guides</li>
+                <li class="caps my1">About us</li>
+                <li class="caps my1">Contact us</li>
+              </ul>
+
+              <ul class="col col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1">Employment</li>
+                <li class="caps my1">Brief media</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="py3 border-bottom border-light-gray">
+            <div class="flex flex-wrap items-center mxn2">
+              <div class="col col-3 p0 px2">
+                <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/philadelphia/img/header/CB-Logo.svg">
+              </div>
+
+              <div class="col col-3 p0 px2">
+                <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/seattle/img/header/vtb-header-logo.svg">
+              </div>
+
+              <div class="col col-3 p0 px2">
+                <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/denver/img/ptbTopLogo.png">
+              </div>
+
+              <div class="col col-3 p0 px2">
+                <img style="max-width: 100px;" src="https://www.plumbsveterinarydrugs.com/files/images/layout/pvd-logo.svg">
+              </div>
+            </div>
+          </div>
+
+          <p class="m0 mt3">&reg; 2016 Educational Concepts, L.L.C. dba Brief Media ™ All Rights Reserved. Privacy Policy  (Updated 03/01/2016) Terms of Use  (Updated )</p>
+        </div>
+      </section>
+    </div> <!-- .template -->
 
     <!-- Easier templating with Mustache -->
     <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
