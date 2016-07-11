@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Clinician's Brief | BassCSS Edition</title>
+    <title>Clinician's Brief | Composable CSS</title>
     <meta name="author" content="Derek Duncan">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,6 +26,12 @@
       a:hover {
         color: #d6001c;
       }
+
+      /**
+       * Extends
+       * BassCSS provides the base styles for a composable CSS framework. These are more customized
+       * classes that pull from more mature ideas in Tachyons.
+       */
 
       .h-auto {
         height: auto;
@@ -53,6 +59,10 @@
 
       .caps {
         letter-spacing: normal;
+      }
+
+      .pointer {
+        cursor: pointer;
       }
 
       .black {
@@ -95,6 +105,10 @@
         background-color: #d6001c;
       }
 
+      .border-white {
+        border-color: #fff;
+      }
+
       .border-light-gray {
         border-color: #dedede;
       }
@@ -103,6 +117,28 @@
         opacity: 0.5;
       }
 
+      .aspect-ratio {
+        height: 0;
+        position: relative;
+        padding-bottom: 56.25%;
+      }
+
+      .aspect-ratio-object {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* end Extends */
+
+      /**
+       * Application level classes. Styles that need customized, generic properties and values
+       * specific to the application.
+       */
       .a-line {
         height: 4px;
       }
@@ -126,6 +162,92 @@
       .a-accent-border {
         border-top: 5px solid #8b1921;
       }
+
+      .a-play-icon {
+        top: calc(50% - 4rem);
+        left: calc(50% - 4rem);
+        width: 8rem;
+        height: 8rem;
+        box-sizing: border-box;
+        border-width: 0.6rem;
+        border-style: solid;
+        opacity: 0.85;
+        transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+      }
+
+      .a-play-icon:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        margin: -1.5rem 0 0 -1rem;
+        border-width: 1.6rem 0 1.6rem 3.0rem;
+        border-color: transparent transparent transparent #ffffff;
+      }
+
+      .a-play-icon:hover {
+        opacity: 1;
+      }
+
+      /* small */
+      @media (min-width: 40em) {
+        .sm-center {
+          text-align: center;
+        }
+
+        .sm-left-align {
+          text-align: left;
+        }
+
+        .sm-right-align {
+          text-align: right;
+        }
+
+        .a-featured-video-wrapper {
+          max-height: 450px;
+
+          video {
+            top: -80px;
+          }
+        }
+
+        .a-featured-video-copy {
+          top: -50px;
+        }
+      }
+
+      /* medium */
+      @media (min-width: 52em) {
+        .md-center {
+          text-align: center;
+        }
+
+        .md-left-align {
+          text-align: left;
+        }
+
+        .md-right-align {
+          text-align: right;
+        }
+      }
+
+      /* large */
+      @media (min-width: 64em) {
+        .lg-center {
+          text-align: center;
+        }
+
+        .lg-left-align {
+          text-align: left;
+        }
+
+        .lg-right-align {
+          text-align: right;
+        }
+      }
     </style>
   </head>
 
@@ -135,15 +257,15 @@
     <div id="target"></div>
 
     <!--
-    The Real Magic
+    The Real Magic aka The Template
     -->
     <div id="template" class="display-none">
 
       <!-- Main Content -->
-      <main class="mx2 lg-mx-auto" style="max-width: 960px;">
+      <main id="main" class="mx2 lg-mx-auto" style="max-width: 960px;">
 
         <!-- Feature Article -->
-        <section class="my3">
+        <section id="featured-article" class="my3">
           <div class="mb2 flex items-center">
             <h5 class="flex-none h2 bold caps red m0">Featured</h5>
             <hr class="a-line flex-auto col-12 ml2 border-none bg-light-gray"></hr>
@@ -161,16 +283,17 @@
                 <p class="serif m0">{{ description }}</p>
                 <div class="sm-mt1">
                 {{ #tags }}
-                  <span class="h5 bold caps {{ #href }}red{{ /href }} {{ ^href }}gray{{ /href }} mr2">{{ name }}</span>
+                  <span class="h5 bold caps {{ #href }}red{{ /href }} {{ ^href }}gray{{ /href }}">{{ name }}</span>
+                  {{ #separator }}<span class="light-gray px1">|</span>{{ /separator }}
                 {{ /tags }}
                 </div>
               </div>
-            {{ /featured }}
-          </div>
+            </div>
+          {{ /featured }}
         </section>
 
         <!-- Latest Articles -->
-        <section class="my3">
+        <section id="latest-articles" class="my3">
           <div class="mb2 flex items-center">
             <h5 class="flex-none h2 bold caps red m0">Latest Articles</h5>
             <hr class="a-line flex-auto col-12 ml2 border-none bg-light-gray"></hr>
@@ -185,17 +308,38 @@
                 <p class="serif m0">{{ description }}</p>
                 <div class="">
                   {{ #tags }}
-                    <span class="h5 bold caps {{ #href }} red {{ /href }} {{ ^href }} gray {{ /href }} mr2">{{ name }}</span>
+                    <span class="h5 bold caps {{ #href }} red {{ /href }} {{ ^href }} gray {{ /href }}">{{ name }}</span>
+                    {{ #separator }}<span class="light-gray px1">|</span>{{ /separator }}
                   {{ /tags }}
                 </div>
               </div>
             {{ /latest }}
           </div>
         </section>
+
+        <!-- Video -->
+        <section id="video" class="relative mxn2 sm-m0 sm-my3">
+          <h5 class="absolute z1 top-0 left-0 block pl2 pb1 pr2 sm-pl0 m0 bg-white h2 lh-none bold caps red" style="top: -10px; padding-bottom: 12px;">Video</h5>
+          <div class="">
+            {{ #video }}
+              <div class="relative overflow-hidden a-featured-video-wrapper">
+                <span class="a-play-icon z1 absolute block bg-red circle border-white pointer"></span>
+                <video class="relative col-12" muted="" autoplay loop preload="auto" poster="{{ poster_path }}">
+                  <source id="mp4" src="{{ video_path }}" type="video/mp4">
+                </video>
+              </div>
+              <div class="relative border-box block col-12 sm-col-8 md-col-6 mx-auto bg-white p2 sm-center a-featured-video-copy">
+                <h3 class="h2 lh-none m0 mb2">{{ title }}</h3>
+                <p class="serif m0">{{ description }}</p>
+              </div>
+            {{ /video }}
+          </div>
+        </section>
+
       </main>
 
       <!-- Prefooter -->
-      <section class="my2 bg-red a-accent-border">
+      <section id="prefooter" class="my2 bg-red a-accent-border">
         <div class="flex flex-wrap items-start mx-auto px2 py4 relative" style="max-width: 960px;">
           <div class="a-overlay-page-corner"></div>
           <div class="col col-12 sm-col-6 md-col-4 pb3 sm-p0 sm-pr4">
@@ -210,59 +354,63 @@
       </section>
 
       <!-- Footer -->
-      <section class="my2">
-        <div class="mx-auto px2 py3 h5" style="max-width: 960px;">
-          <div class="pb3 border-bottom border-light-gray">
-            <div class="flex flex-wrap mxn2">
-              <ul class="col col-3 p0 px2 m0 list-style-none">
-                <li class="caps my1">Home</li>
-                <li class="caps my1">My account</li>
-                <li class="caps my1">Sign out</li>
+      <section id="footer" class="my2">
+        <div class="mx-auto px2 py3" style="max-width: 960px;">
+          <div class="pb3 border-bottom border-light-gray h6">
+            <nav class="flex flex-wrap mxn2 center sm-left-align">
+              <ul class="col col-6 sm-col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1"><a href="#" class="black">Home</a></li>
+                <li class="caps my1"><a href="#" class="black">My account</a></li>
+                <li class="caps my1"><a href="#" class="black">Sign out</a></li>
               </ul>
 
-              <ul class="col col-3 p0 px2 m0 list-style-none">
-                <li class="caps my1">Latest issue</li>
-                <li class="caps my1">Global edition</li>
-                <li class="caps my1">Capsules</li>
+              <ul class="col col-6 sm-col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1"><a href="#" class="black">Latest issue</a></li>
+                <li class="caps my1"><a href="#" class="black">Global edition</a></li>
+                <li class="caps my1"><a href="#" class="black">Capsules</a></li>
               </ul>
 
-              <ul class="col col-3 p0 px2 m0 list-style-none">
-                <li class="caps my1">Diagnosis &amp; treatment guides</li>
-                <li class="caps my1">About us</li>
-                <li class="caps my1">Contact us</li>
+              <ul class="col col-6 sm-col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1"><a href="#" class="black">Diagnosis &amp; treatment guides</a></li>
+                <li class="caps my1"><a href="#" class="black">About us</a></li>
+                <li class="caps my1"><a href="#" class="black">Contact us</a></li>
               </ul>
 
-              <ul class="col col-3 p0 px2 m0 list-style-none">
-                <li class="caps my1">Employment</li>
-                <li class="caps my1">Brief media</li>
+              <ul class="col col-6 sm-col-3 p0 px2 m0 list-style-none">
+                <li class="caps my1"><a href="#" class="black">Employment</a></li>
+                <li class="caps my1"><a href="#" class="black">Brief media</a></li>
               </ul>
             </div>
-          </div>
+          </nav>
 
           <div class="py3 border-bottom border-light-gray">
-            <div class="flex flex-wrap items-center mxn2">
-              <div class="col col-3 p0 px2">
+            <div class="flex flex-wrap items-center mxn2 center sm-left-align">
+              <div class="col col-12 sm-col-3 py2 sm-p0 sm-px2">
                 <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/philadelphia/img/header/CB-Logo.svg">
               </div>
 
-              <div class="col col-3 p0 px2">
+              <div class="col col-12 sm-col-3 py2 sm-p0 sm-px2">
                 <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/seattle/img/header/vtb-header-logo.svg">
               </div>
 
-              <div class="col col-3 p0 px2">
+              <div class="col col-12 sm-col-3 py2 sm-p0 sm-px2">
                 <img style="max-width: 120px;" src="http://cbrief.net/sites/default/themes/denver/img/ptbTopLogo.png">
               </div>
 
-              <div class="col col-3 p0 px2">
+              <div class="col col-12 sm-col-3 py2 sm-p0 sm-px2">
                 <img style="max-width: 100px;" src="https://www.plumbsveterinarydrugs.com/files/images/layout/pvd-logo.svg">
               </div>
             </div>
           </div>
 
-          <p class="m0 mt3">&reg; 2016 Educational Concepts, L.L.C. dba Brief Media ™ All Rights Reserved. Privacy Policy  (Updated 03/01/2016) Terms of Use  (Updated )</p>
+          <p class="h5 m0 mt3">&reg; 2016 Educational Concepts, L.L.C. dba Brief Media &trade; All Rights Reserved. <a href="#">Privacy Policy</a> (Updated 03/01/2016) <a href="#">Terms of Use</a> (Updated 03/01/2016)</p>
         </div>
       </section>
-    </div> <!-- .template -->
+    </div> <!-- #template -->
+
+    <!--
+    **ignore** scripts and setup from here down.
+    -->
 
     <!-- Easier templating with Mustache -->
     <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
@@ -276,6 +424,7 @@
             {
               name: "Surgery, Soft Tissue",
               href: "#",
+              separator: true,
             },
             {
               name: "Peer Reviewed",
@@ -292,6 +441,7 @@
               {
                 name: "Urology & Nephrology",
                 href: "#",
+                separator: true,
               },
               {
                 name: "Peer Reviewed",
@@ -307,6 +457,7 @@
               {
                 name: "Dermatology",
                 href: "#",
+                separator: true,
               },
               {
                 name: "Peer Reviewed",
@@ -322,6 +473,7 @@
               {
                 name: "Dermatology",
                 href: "#",
+                separator: true,
               },
               {
                 name: "Peer Reviewed",
@@ -337,6 +489,7 @@
               {
                 name: "Behavior",
                 href: "#",
+                separator: true,
               },
               {
                 name: "Peer Reviewed",
@@ -352,6 +505,7 @@
               {
                 name: "Dermatology",
                 href: "#",
+                separator: true,
               },
               {
                 name: "Peer Reviewed",
@@ -371,6 +525,12 @@
             ],
           },
         ],
+        video: {
+          title: "Thank You: Queen E",
+          description: "Queen E never knew what love was until she experienced care from a dedicated staff and family.",
+          video_path: "https://player.vimeo.com/external/161684927.sd.mp4?s=f22695e170ff4d71aa1b981868aa4a997f335a5e&profile_id=165",
+          poster_path: "http://www.cliniciansbrief.com/sites/default/files/polyp-traction-1.png",
+        },
       };
 
       /**
